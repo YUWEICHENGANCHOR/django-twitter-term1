@@ -1,0 +1,2 @@
+# django-twitter
+Twitter codebase
