@@ -4,6 +4,7 @@ from utils.time_helpers import utc_now
 
 
 class Tweet(models.Model):
+    # //這篇誰發的
     user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
@@ -11,6 +12,7 @@ class Tweet(models.Model):
         help_text='who posts this tweet',
     )
     content = models.CharField(max_length=255)
+    # why not 256? 因為後面是'abcde\0'，最後面是\0
     created_at = models.DateTimeField(auto_now_add=True)
 
     # 聯合索引
