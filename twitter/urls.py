@@ -20,6 +20,7 @@ from accounts.api.views import UserViewSet, AccountViewSet
 from tweets.api.views import TweetViewSet
 from friendships.api.views import FriendshipViewSet
 from newsfeeds.api.views import NewsFeedViewSet
+# from comments.api.views import Comments
 
 router = routers.DefaultRouter()
 router.register(r'api/users', UserViewSet)
