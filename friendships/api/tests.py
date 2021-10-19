@@ -45,7 +45,7 @@ class FriendshipApiTests(TestCase):
         self.assertEqual(response.status_code, 201)
         # 重复 follow 會400
         response = self.dongxie_client.post(url)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 201)
         self.assertEqual(response.data['duplicate'], True)
         # 反向关注会创建新的数据
         count = Friendship.objects.count()
