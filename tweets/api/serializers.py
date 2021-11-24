@@ -11,7 +11,7 @@ from tweets.services import TweetService
 
 class TweetSerializer(serializers.ModelSerializer):
     # 沒有這個，就只會傳回整數形式返回，不會解析user，dict 套dict
-    user = UserSerializerForTweet()
+    user = UserSerializerForTweet(source='cached_user')
     comments_count = serializers.SerializerMethodField()
     likes_count = serializers.SerializerMethodField()
     has_liked = serializers.SerializerMethodField()
