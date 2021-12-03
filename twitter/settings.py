@@ -204,6 +204,8 @@ MEDIA_ROOT = 'media/'
 # sudo apt-get install memcached
 # use `pip install python-memcached`
 # DO NOT pip install memcache or django-memcached
+# memcached 安装方法: apt-get install memcached
+# 然后安装 python 的 memcached 客户端：use `pip install python-memcached`
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
@@ -217,6 +219,14 @@ CACHES = {
         'KEY_PREFIX': 'testing',
     },
 }
+
+# Redis
+# 安装方法: sudo apt-get install redis
+# 然后安装 redis 的 python 客户端： pip install redis
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = 6379
+REDIS_DB = 0 if TESTING else 1
+REDIS_KEY_EXPIRE_TIME = 7 * 86400  # in seconds
 
 try:
     from .local_settings import *
