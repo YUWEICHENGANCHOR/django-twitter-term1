@@ -55,10 +55,20 @@ class TweetViewSet(viewsets.GenericViewSet):
         # 单纯的 user 索引是不够的
         # 倒敘排列，索引，user_id索引，如何按照排序，使用聯合索引，filter orderby都要
 
-        tweets = TweetService.get_cached_tweets(user_id=request.query_params['user_id'])
-        tweets = self.paginate_queryset(tweets)
+        user_id = request.query_params['user_id']
+        cached_tweets = TweetService.get_cached_tweets(user_id)
+        page = self.paginator.paginate_cached_list(cached_tweets, request)
+        if page is None:
+            # 这句查询会被翻译为
+            # select * from twitter_tweets
+            # where user_id = xxx
+            # order by created_at desc
+            # 这句 SQL 查询会用到 user 和 created_at 的联合索引
+            # 单纯的 user 索引是不够的
+            queryset = Tweet.objects.filter(user_id=user_id).order_by('-created_at')
+            page = self.paginate_queryset(queryset)
         serializer = TweetSerializer(
-            tweets,
+            page,
             context={'request': request},
             many=True,
         )
