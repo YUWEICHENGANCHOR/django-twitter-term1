@@ -56,6 +56,8 @@ class TweetViewSet(viewsets.GenericViewSet):
         # 倒敘排列，索引，user_id索引，如何按照排序，使用聯合索引，filter orderby都要
 
         user_id = request.query_params['user_id']
+        tweets = Tweet.objects.filter(user_id=user_id).prefetch_related('user')
+
         cached_tweets = TweetService.get_cached_tweets(user_id)
         page = self.paginator.paginate_cached_list(cached_tweets, request)
         if page is None:
