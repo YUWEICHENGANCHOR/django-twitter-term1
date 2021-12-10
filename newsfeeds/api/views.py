@@ -20,6 +20,7 @@ class NewsFeedViewSet(viewsets.GenericViewSet):
     def list(self, request):
         cached_newsfeeds = NewsFeedService.get_cached_newsfeeds(request.user.id)
         page = self.paginator.paginate_cached_list(cached_newsfeeds, request)
+        #page 是none代表我現在請求的數據可能不在cache李，需要直接去db來獲取
         if page is None:
             queryset = NewsFeed.objects.filter(user=request.user)
             page = self.paginate_queryset(queryset)
