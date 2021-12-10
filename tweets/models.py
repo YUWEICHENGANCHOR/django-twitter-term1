@@ -23,6 +23,11 @@ class Tweet(models.Model):
     # why not 256? 因為後面是'abcde\0'，最後面是\0
     created_at = models.DateTimeField(auto_now_add=True)
 
+    # 新增的 field 一定要设置 null=True，否则 default = 0 会遍历整个表单去设置
+    # 导致 Migration 过程非常慢，从而把整张表单锁死，从而正常用户无法创建新的 tweets
+    likes_count = models.IntegerField(default=0, null=True)
+    comments_count = models.IntegerField(default=0, null=True)
+
     # 聯合索引
     class Meta:
         index_together = (('user', 'created_at'),)
