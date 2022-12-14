@@ -1,4 +1,7 @@
-# django-twitter
+# django-twitter-term1
+使用另一個repository code base origin2 到這來，使用https://medium.com/fuzzy-code/git-push-to-new-repo-from-existing-repos-branch-acb8bef3f7be
+重新寫新的code push 到此處
+
 
 Twitter codebase
 啟動虛擬機
